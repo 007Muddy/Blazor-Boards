@@ -5,6 +5,7 @@
     /// </summary>
     public class ProductModel
     {
+      
         /// <summary>
         /// Unique identifier of the product.
         /// </summary>
@@ -18,8 +19,20 @@
         /// <summary>
         /// Price of the product.
         /// </summary>
+
+        public double Length { get;  }
+
+        public double Width { get;  }
+
+        public double Thikness { get; }
+
+        public double Volume { get; }
+
+        public string Type { get; set; }
+
         public decimal Price { get; }
 
+        public string  Equimpent { get; }
         /// <summary>
         /// The image path of the product.
         /// </summary>
@@ -54,12 +67,19 @@
         /// <param name="name">Name of the product.</param>
         /// <param name="price">Price of the product.</param>
         /// <param name="image">Image path of the product.</param>
-        public ProductModel(string sku, string name, decimal price, string image)
+        public ProductModel(string sku, string name, double length, double width, double thikness, double volume, string type, decimal price, string equimpent, string image)
         {
             Sku = sku;
             Name = name;
+            Length = length;
+            Width = width;
+            Thikness = thikness;
+            Volume = volume;
+            Type = type;
             Price = price;
+            Equimpent = equimpent;
             Image = image;
         }
+
     }
 }

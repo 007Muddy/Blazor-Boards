@@ -27,26 +27,23 @@ namespace MyBlazorShop.Libraries.Services.Storage
             ShoppingCart = new ShoppingCartModel();
 
             // Store a list of all the products for the online shop.
-            AddProduct(new ProductModel("BUBBLES-GUMBALL-APRON", "A Gumball for Your Thoughts Apron", 24, "bubbles-gumball-apron-black.jpg"));
-            AddProduct(new ProductModel("REX-MICROCONTROLLERS-APRON", "Great Microcontrollers Think Alike Apron", 24, "rex-microcontrollers-apron-black.jpg"));
-            AddProduct(new ProductModel("DOLORES-COMPUTE-BASEBALLHAT", "I Compute, Therefore I Am Baseball Hat", 29, "dolores-compute-baseballhat-black.jpg"));
-            AddProduct(new ProductModel("BUBBLES-GUMBALL-BASEBALLHAT", "A Gumball for Your Thoughts Baseball Hat", 29, "bubbles-gumball-baseballhat-black.jpg"));
-            AddProduct(new ProductModel("REX-MICROCONTROLLERS-BASEBALLHAT", "Great Microcontrollers Think Alike Baseball Hat", 29, "rex-microcontrollers-baseballhat-black.jpg"));
-            AddProduct(new ProductModel("DOLORES-COMPUTE-MUG", "I Compute, Therefore I Am Mug", 16, "dolores-compute-mug-black.jpg"));
-            AddProduct(new ProductModel("DOLORES-COMPUTE-TSHIRT", "I Compute, Therefore I Am T-shirt", 26, "dolores-compute-tshirt-black.jpg"));
-            AddProduct(new ProductModel("REX-MICROCONTROLLERS-TSHIRT", "Great Microcontrollers Think Alike T-shirt", 26, "rex-microcontrollers-tshirt-black.jpg"));
+            AddProduct(new ProductModel("SKU12345", "The Minilog", 6, 21, 2.75, 38.8, "Shortboard", 565M, "", "download (1).jpg"));
+            AddProduct(new ProductModel("SKU67890", "The Wide Glider", 7.16, 21.75, 2.75, 44.16, "Funboard", 685M, "", "download.jpg"));
+            AddProduct(new ProductModel("SKU24680", "The Golden Ratio", 6.3, 21.85, 2.9, 43.22, "Funboard", 695M, "", "images.png"));
+
         }
 
-        /// <summary>
-        /// Adds a product to the storage.
-        /// </summary>
-        /// <param name="productModel">The <see cref="ProductModel"/> type to be added.</param>
-        private void AddProduct(ProductModel productModel)
-        {
-            if (!Products.Any(p => p.Sku == productModel.Sku))
+
+            /// <summary>
+            /// Adds a product to the storage.
+            /// </summary>
+            /// <param name="productModel">The <see cref="ProductModel"/> type to be added.</param>
+            private void AddProduct(ProductModel productModel)
             {
-                Products.Add(productModel);
+                if (!Products.Any(p => p.Sku == productModel.Sku))
+                {
+                    Products.Add(productModel);
+                }
             }
         }
     }
-}
