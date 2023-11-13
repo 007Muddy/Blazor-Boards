@@ -24,7 +24,7 @@
 
         public double Width { get;  }
 
-        public double Thikness { get; }
+        public double Thickness { get; }
 
         public double Volume { get; }
 
@@ -32,11 +32,11 @@
 
         public decimal Price { get; }
 
-        public string  Equimpent { get; }
+        public string?  Equimpent { get; }
         /// <summary>
         /// The image path of the product.
         /// </summary>
-        public string Image { get; }
+        public string? Image { get; }
 
         /// <summary>
         /// The route slug of the product.
@@ -73,7 +73,7 @@
             Name = name;
             Length = length;
             Width = width;
-            Thikness = thikness;
+            Thickness = thikness;
             Volume = volume;
             Type = type;
             Price = price;
