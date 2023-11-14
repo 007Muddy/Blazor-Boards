@@ -34,9 +34,26 @@
 @functions {
     protected override async Task OnInitializedAsync()
     {
-        HttpClient httpClient = new HttpClient();
-        await storageService.GetBoardsFromApi(httpClient);
-        Products = storageService.Products;
+
+        //check if data is retrived from API
+        var isDataRetrived = productService.GetAll();
+
+        //If data is not retrived, seed the data and populate the list
+        if (isDataRetrived.Count == 0)
+        {
+            await productService.GetSeedDataFromAPI();
+
+            Products = productService.GetAll();
+        }
+        //If data is retrived then populate the list
+        else
+        {
+            Products = productService.GetAll();
+        }
         await base.OnInitializedAsync();
+        // HttpClient httpClient = new HttpClient();
+        // await storageService.GetBoardsFromApi(httpClient);
+        // Products = storageService.Products;
+        // await base.OnInitializedAsync();
     }
 }

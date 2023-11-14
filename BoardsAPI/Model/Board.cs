@@ -24,5 +24,7 @@ namespace BoardsAPI.Model
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
+
+
     }
 }

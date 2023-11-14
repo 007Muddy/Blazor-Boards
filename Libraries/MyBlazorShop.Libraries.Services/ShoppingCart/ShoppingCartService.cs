@@ -88,12 +88,16 @@ namespace MyBlazorShop.Libraries.Services.ShoppingCart
         /// </summary>
         /// <param name="sku">The unique identifier of the product.</param>
         /// <returns>A <see cref="bool"/> type which determines whether the product has been added to the shopping cart.</returns>
-        public bool HasProduct(string sku)
+        public bool HasProduct(int sku)
         {
             var shoppingCart = Get();
 
             return shoppingCart.Items.Any(i => i.Product.Sku == sku);
         }
 
+        //public bool HasProduct(string sku)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

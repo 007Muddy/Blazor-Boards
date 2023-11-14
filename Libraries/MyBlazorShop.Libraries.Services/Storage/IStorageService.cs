@@ -18,7 +18,7 @@ namespace MyBlazorShop.Libraries.Services.Storage
         /// </summary>
         ShoppingCartModel ShoppingCart { get; }
 
-        Task GetBoardsFromApi(HttpClient httpClient);
+        Task GetBoardsFromApi();
 
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace MyBlazorShop.Libraries.Services.Product.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MyBlazorShop.Libraries.Services.Product.Models
 {
     /// <summary>
     /// Stores a product.
@@ -9,34 +11,29 @@
         /// <summary>
         /// Unique identifier of the product.
         /// </summary>
-        public string Sku { get; }
+        public int Sku { get; }
 
         /// <summary>
         /// Name of the product.
         /// </summary>
-        public string Name { get; }
+        public string? Name { get; set; }
+        public double Length { get; set; }
+        public double Width { get; set; }
+        public double Thickness { get; set; }
+        public double Volume { get; set; }
+        public string? Type { get; set; }
+        public Decimal Price { get; set; }
+        public string? Equipment { get; set; }
+        public bool Reserved { get; set; }
+        public string? Image { get; set; }
+        [Required(ErrorMessage = "Please choese a startdate")]
 
-        /// <summary>
-        /// Price of the product.
-        /// </summary>
+        public DateTime StartDate { get; set; }
+        [Required(ErrorMessage = "Please choese a enddate")]
+        public DateTime EndDate { get; set; }
 
-        public double Length { get;  }
-
-        public double Width { get;  }
-
-        public double Thickness { get; }
-
-        public double Volume { get; }
-
-        public string Type { get; set; }
-
-        public decimal Price { get; }
-
-        public string?  Equimpent { get; }
-        /// <summary>
-        /// The image path of the product.
-        /// </summary>
-        public string? Image { get; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
         /// <summary>
         /// The route slug of the product.
@@ -45,7 +42,7 @@
         {
             get
             {
-                return Sku.ToLower();
+                return Sku.ToString();
             }
         }
 
@@ -60,6 +57,24 @@
             }
         }
 
+        public ProductModel(int sku, string? name, double length, double width, double thickness, double volume, string? type, decimal price, string? equipment, bool reserved, string? image, DateTime startDate, DateTime endDate, byte[] rowVersion)
+        {
+            Sku = sku;
+            Name = name;
+            Length = length;
+            Width = width;
+            Thickness = thickness;
+            Volume = volume;
+            Type = type;
+            Price = price;
+            Equipment = equipment;
+            Reserved = reserved;
+            Image = image;
+            StartDate = startDate;
+            EndDate = endDate;
+            RowVersion = rowVersion;
+        }
+
         /// <summary>
         /// Constructs a new product.
         /// </summary>
@@ -67,19 +82,7 @@
         /// <param name="name">Name of the product.</param>
         /// <param name="price">Price of the product.</param>
         /// <param name="image">Image path of the product.</param>
-        public ProductModel(string sku, string name, double length, double width, double thikness, double volume, string type, decimal price, string equimpent, string image)
-        {
-            Sku = sku;
-            Name = name;
-            Length = length;
-            Width = width;
-            Thickness = thikness;
-            Volume = volume;
-            Type = type;
-            Price = price;
-            Equimpent = equimpent;
-            Image = image;
-        }
+
 
     }
 }

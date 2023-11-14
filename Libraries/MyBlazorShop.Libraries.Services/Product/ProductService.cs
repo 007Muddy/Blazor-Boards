@@ -28,7 +28,7 @@ namespace MyBlazorShop.Libraries.Services.Product
         /// </summary>
         /// <param name="sku">The unique sku reference.</param>
         /// <returns>A <see cref="ProductModel"/> type.</returns>
-        public ProductModel? Get(string sku)
+        public ProductModel? Get(int sku)
         {
             return _storageService.Products.FirstOrDefault(p => p.Sku == sku);
         }
@@ -51,6 +51,12 @@ namespace MyBlazorShop.Libraries.Services.Product
         {
             return _storageService.Products.ToList();
         }
+
+        public async Task GetSeedDataFromAPI()
+        {
+            await _storageService.GetBoardsFromApi();
+        }
+
     }
     
 }

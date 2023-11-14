@@ -12,7 +12,7 @@ namespace MyBlazorShop.Libraries.Services.Product
         /// </summary>
         /// <param name="sku">The unique sku reference.</param>
         /// <returns>A <see cref="ProductModel"/> type.</returns>
-        ProductModel? Get(string sku);
+        ProductModel? Get(int sku);
 
         /// <summary>
         /// Get a product by slug.
@@ -26,5 +26,8 @@ namespace MyBlazorShop.Libraries.Services.Product
         /// </summary>
         /// <returns>A <see cref="IList<ProductModel>"/> type.</returns>
         IList<ProductModel> GetAll();
+
+        Task GetSeedDataFromAPI();
+
     }
 }

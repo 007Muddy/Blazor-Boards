@@ -34,30 +34,29 @@ namespace MyBlazorShop.Libraries.Services.Storage
 
         }
 
-     public async Task GetBoardsFromApi(HttpClient httpClient)
+     public async Task GetBoardsFromApi()
         {
-            Products = await httpClient.GetFromJsonAsync<List<ProductModel>>(@"https://localhost:7071/api/Boards/GetAllBoards");
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var result = await response.Content.ReadFromJsonAsync<List<ProductModel>>();
-            //    if (result != null)
-            //    {
-            //        Products = result;
-
-            //    }
-            //    else
-            //    {
-
-            //        throw new Exception("Result of API invalid");
-            //    }
-            //}
-            //else
-            //{
-
-            //    throw new Exception("Api call is working correctly" + response.StatusCode.ToString());
             
-            //}
-           
+            HttpClient httpClient = new HttpClient();
+            var response = await httpClient.GetAsync("https://localhost:7071/api/Boards/GetAllBoards");
+            if (response.IsSuccessStatusCode)
+            {
+                var reuslt = await response.Content.ReadFromJsonAsync<IList<ProductModel>>();
+                if (reuslt != null)
+                {
+                    Products = reuslt;
+
+                }
+                else
+                {
+                    throw new Exception("Result of API call was null");
+                }
+            }
+            else
+            {
+                throw new Exception("API call returned: " + response.StatusCode.ToString());
+            }
+
         }
 
 
@@ -73,5 +72,7 @@ namespace MyBlazorShop.Libraries.Services.Storage
                     Products.Add(productModel);
                 }
             }
-        }
+
+        
+    }
     }
