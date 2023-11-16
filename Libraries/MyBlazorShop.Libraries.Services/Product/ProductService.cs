@@ -28,7 +28,7 @@ namespace MyBlazorShop.Libraries.Services.Product
         /// </summary>
         /// <param name="sku">The unique sku reference.</param>
         /// <returns>A <see cref="ProductModel"/> type.</returns>
-        public ProductModel? Get(int sku)
+        public ProductModel? Get(string sku)
         {
             return _storageService.Products.FirstOrDefault(p => p.Sku == sku);
         }

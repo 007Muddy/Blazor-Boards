@@ -12,7 +12,7 @@ namespace MyBlazorShop.Libraries.Services.Product
         /// </summary>
         /// <param name="sku">The unique sku reference.</param>
         /// <returns>A <see cref="ProductModel"/> type.</returns>
-        ProductModel? Get(int sku);
+        ProductModel? Get(string sku);
 
         /// <summary>
         /// Get a product by slug.
