@@ -46,6 +46,7 @@
                                     </span>
                                 }
                             </button>
+                            <ConfirmDialog @ref="dialog" />
                        </div>
                         @if (AllProducts != null)
                         {
@@ -63,6 +64,8 @@
        </div>
     </main>
 @code {
+    private ConfirmDialog dialog = default!;
+
     public ProductModel? Product { get; set; }
 
     public int? Quantity { get; set; }
@@ -88,12 +91,27 @@
         }        
     }
 
-    public void AddToCart()
+    public async Task AddToCart()
     {
-        if (Product != null)
+        var options = new ConfirmDialogOptions
+            {
+                YesButtonText = "OK",
+                YesButtonColor = ButtonColor.Success,
+                NoButtonText = "CANCEL",
+                NoButtonColor = ButtonColor.Danger
+            };
+        var confirmation = await dialog.ShowAsync(
+        title: "Confirm",
+        message1: "Are you sure you want to add new items?",
+        confirmDialogOptions: options);
+
+        if (confirmation)
         {
-            shoppingCartService.AddProduct(Product, Quantity ?? 1);
-            Quantity = null;
+            if (Product != null)
+            {
+                shoppingCartService.AddProduct(Product, Quantity ?? 1);
+                Quantity = null;
+            }
         }
     }
 }

@@ -20,6 +20,6 @@ namespace MyBlazorShop.Libraries.Services.Product.Models
         /// <summary>
         /// The method to add a product to cart
         /// </summary>
-        void AddToCart();
+        Task AddToCart();
     }
 }

@@ -19,19 +19,33 @@
             <div class="display:flex flex-grow:1 flex-wrap:wrap margin-bottom:-32 margin-horizontal:-16">
                 <div class="display:flex flex-direction:column flex-grow:0 flex-shrink:0 margin-bottom:32 padding-horizontal:16 width:100 @@mq-768--width:100">
                     <ul class="display:flex flex-grow:1 flex-wrap:wrap margin-bottom:-32 margin-horizontal:-16">
-                        @foreach(var product in Products)
+                        @foreach (var product in DisplayedProducts)
                         {
                             <ProductListingItem Product="product"></ProductListingItem>
-                        }                        
+                        }
                     </ul>
                 </div>
+                <Pagination ActivePageNumber="@currentPageNumber"
+                            TotalPages="totalPages"
+                            DisplayPages="5"
+                            PageChanged="OnPageChangedAsync"
+                            Alignment="Alignment.Center"
+                            FirstLinkIcon="IconName.ChevronDoubleLeft"
+                            PreviousLinkIcon="IconName.ChevronLeft"
+                            NextLinkIcon="IconName.ChevronRight"
+                            LastLinkIcon="IconName.ChevronDoubleRight" />
             </div>
         </div>
     </main>
+
 }
 
 @code {
     public IList<ProductModel> Products { get; set; }
+    private List<ProductModel> DisplayedProducts { get; set; }
+    private int currentPageNumber = 1;
+    private int itemsPerPage = 4;
+    private int totalPages;
 }
 @functions {
     protected override async Task OnInitializedAsync()
@@ -52,10 +66,22 @@
         {
             Products = productService.GetAll();
         }
-        await base.OnInitializedAsync();
+        UpdateDisplayedProducts();
         // HttpClient httpClient = new HttpClient();
         // await storageService.GetBoardsFromApi(httpClient);
         // Products = storageService.Products;
         // await base.OnInitializedAsync();
+    }
+
+    private void UpdateDisplayedProducts()
+    {
+        totalPages = (int)Math.Ceiling((double)Products.Count / itemsPerPage);
+        DisplayedProducts = Products.Skip((currentPageNumber - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+    }
+
+    private async Task OnPageChangedAsync(int newPage)
+    {
+        currentPageNumber = newPage;
+        UpdateDisplayedProducts();
     }
 }
