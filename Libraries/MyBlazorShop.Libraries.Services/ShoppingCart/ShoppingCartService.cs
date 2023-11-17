@@ -43,10 +43,10 @@ namespace MyBlazorShop.Libraries.Services.ShoppingCart
             // Get all items from shopping cart.
             var items = Get().Items;
 
-            if (HasProduct(product.Sku))
+            if (HasProduct(product.ID))
             {
                 // Product exists, so find it in the shopping cart.
-                var item = items.First(i => i.Product.Sku == product.Sku);
+                var item = items.First(i => i.Product.ID == product.ID);
 
                 // Update quantity of the item.
                 item.UpdateQuantity(product, quantity);
@@ -67,10 +67,10 @@ namespace MyBlazorShop.Libraries.Services.ShoppingCart
             // Get all items from the cart.
             var items = Get().Items;
 
-            if (HasProduct(item.Product.Sku))
+            if (HasProduct(item.Product.ID))
             {
                 // Delete item from shopping cart
-                items.Remove(items.First(i => i.Product.Sku == item.Product.Sku));
+                items.Remove(items.First(i => i.Product.ID == item.Product.ID));
             }
         }
 
@@ -88,11 +88,11 @@ namespace MyBlazorShop.Libraries.Services.ShoppingCart
         /// </summary>
         /// <param name="sku">The unique identifier of the product.</param>
         /// <returns>A <see cref="bool"/> type which determines whether the product has been added to the shopping cart.</returns>
-        public bool HasProduct(string sku)
+        public bool HasProduct(int id)
         {
             var shoppingCart = Get();
 
-            return shoppingCart.Items.Any(i => i.Product.Sku == sku);
+            return shoppingCart.Items.Any(i => i.Product.ID == id);
         }
 
         //public bool HasProduct(string sku)

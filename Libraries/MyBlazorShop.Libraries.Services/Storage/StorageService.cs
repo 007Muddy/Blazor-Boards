@@ -67,7 +67,7 @@ namespace MyBlazorShop.Libraries.Services.Storage
         /// <param name="productModel">The <see cref="ProductModel"/> type to be added.</param>
         private void AddProduct(ProductModel productModel)
             {
-                if (!Products.Any(p => p.Sku == productModel.Sku))
+                if (!Products.Any(p => p.ID == productModel.ID))
                 {
                     Products.Add(productModel);
                 }

@@ -11,7 +11,7 @@ namespace MyBlazorShop.Libraries.Services.Product.Models
         /// <summary>
         /// Unique identifier of the product.
         /// </summary>
-        public string Sku { get; }
+        public int ID { get; set; }
 
         /// <summary>
         /// Name of the product.
@@ -42,7 +42,7 @@ namespace MyBlazorShop.Libraries.Services.Product.Models
         {
             get
             {
-                return Sku;
+                return ID.ToString();
             }
         }
 
@@ -59,7 +59,7 @@ namespace MyBlazorShop.Libraries.Services.Product.Models
 
         public ProductModel(int id, string? name, double length, double width, double thickness, double volume, string? type, decimal price, string? equipment, bool reserved, string? image, DateTime startDate, DateTime endDate, byte[] rowVersion)
         {
-            Sku = id.ToString();
+            ID = id;
             Name = name;
             Length = length;
             Width = width;
