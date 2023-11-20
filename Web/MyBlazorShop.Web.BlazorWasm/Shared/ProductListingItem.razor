@@ -36,16 +36,42 @@
             </button>
             <ConfirmDialog @ref="dialog" />
 
-            <Modal @ref="modal" title="Details" UseStaticBackdrop="true">
+            <Modal @ref="modal" title="Details" UseStaticBackdrop="true" Size="ModalSize.Small">
                 <BodyTemplate>
-                    Name: @Product.Name <br>
-                    Length: @Product.Length feet <br>
-                    Width: @Product.Width inches <br>
-                    Thickness: @Product.Thickness inches <br>
-                    Volume: @Product.Volume L <br>
-                    Type: @Product.Type <br>
-                    Price: @Product.Price $ <br>
-                    Equipment: @Product.Equipment
+                    <table style="width:100%">
+                        <tr>
+                            <td>Name:</td>
+                            <td>@Product.Name</td>
+                        </tr>
+                        <tr>
+                            <td>Length:</td>
+                            <td>@Product.Length feet</td>
+                        </tr>
+                        <tr>
+                            <td>Width:</td>
+                            <td>@Product.Width inches</td>
+                        </tr>
+                        <tr>
+                            <td>Thickness:</td>
+                            <td>@Product.Thickness inches</td>
+                        </tr>
+                        <tr>
+                            <td>Volume:</td>
+                            <td>@Product.Volume L</td>
+                        </tr>
+                        <tr>
+                            <td>Type:</td>
+                            <td>@Product.Type</td>
+                        </tr>
+                        <tr>
+                            <td>Price:</td>
+                            <td>$@Product.Price</td>
+                        </tr>
+                        <tr>
+                            <td>Equipment:</td>
+                            <td>@Product.Equipment</td>
+                        </tr>
+                    </table>
                 </BodyTemplate>
                 <FooterTemplate>
                     <Button Color="ButtonColor.Secondary" @onclick="OnHideModalClick">Close</Button>
@@ -60,14 +86,14 @@
     private Modal modal = default!;
     [Parameter]
     public ProductModel? Product { get; set; }
-    
 
-
-    public int? Quantity { get; set; }
+    public int? Quantity { get; set; }  
 }
 @functions {
     public async Task AddToCart()
     {
+        bool confirmation = false;
+
         var options = new ConfirmDialogOptions
             {
                 YesButtonText = "OK",
@@ -75,12 +101,23 @@
                 NoButtonText = "CANCEL",
                 NoButtonColor = ButtonColor.Danger
             };
-        var confirmation = await dialog.ShowAsync(
-        title: "Confirm",
-        message1: "Are you sure you want to add new items?",
-        confirmDialogOptions: options);
         
-        if (confirmation)
+        @if (Quantity.HasValue)
+        {
+           confirmation = await dialog.ShowAsync(
+           title: "Confirm",
+           message1: $"Are you sure, that you want to add {Quantity} {Product.Name} to the cart?",
+           confirmDialogOptions: options);
+        }
+        else
+        {
+           confirmation = await dialog.ShowAsync(
+           title: "Confirm",
+           message1: $"Are you sure, that you want to add 1 {Product.Name} to the cart?",
+           confirmDialogOptions: options);
+        }
+
+    if (confirmation)
         {
             if (Product != null)
             {

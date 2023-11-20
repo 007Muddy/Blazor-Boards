@@ -25,15 +25,16 @@
                         }
                     </ul>
                 </div>
+                <div>
                 <Pagination ActivePageNumber="@currentPageNumber"
                             TotalPages="totalPages"
-                            DisplayPages="5"
+                            DisplayPages="5"    
                             PageChanged="OnPageChangedAsync"
-                            Alignment="Alignment.Center"
                             FirstLinkIcon="IconName.ChevronDoubleLeft"
                             PreviousLinkIcon="IconName.ChevronLeft"
                             NextLinkIcon="IconName.ChevronRight"
                             LastLinkIcon="IconName.ChevronDoubleRight" />
+                </div>
             </div>
         </div>
     </main>

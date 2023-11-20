@@ -6,26 +6,99 @@
 {
     <tr class="@@mq-upto-768--display:block @@mq-upto-768--border-top-color:neutral-979797 @@mq-upto-768--border-top-style:solid @@mq-upto-768--border-top-width:1 @@mq-upto-768--padding-horizontal:24 padding-bottom:4 padding-top:20">
         <td class="padding-left:16 @@mq-upto-768--display:none padding-vertical:16 vertical-align:top"><img alt="Photo of It’s All 0’s and 1’s to Me! Apron, Black" src="/images/@Item.Product.Image" class="max-width:cart-image"></td>
-        <td class="padding:16 @@mq-upto-768--padding-left:cart-image @@mq-upto-768--padding-right:0 @@mq-upto-768--padding-vertical:0 position:relative"><img alt="Photo of It’s All 0’s and 1’s to Me! Apron, Black" src="/images/@Item.Product.Image" class="position:absolute pos-left:0 @@mq-768--display:none max-width:cart-image width:100"> <a href="@Item.Product.FullUrl" class="font-weight:500 font-size:20 &amp;:hocus--text-decoration:underline @@mq-upto-768--margin-left:20 color:blue-265f8e display:block margin-bottom:8">@Item.Product.Name</a></td>
+        <td class="padding:16 @@mq-upto-768--padding-left:cart-image @@mq-upto-768--padding-right:0 @@mq-upto-768--padding-vertical:0 position:relative"><img alt="Photo of It’s All 0’s and 1’s to Me! Apron, Black" src="/images/@Item.Product.Image" class="position:absolute pos-left:0 @@mq-768--display:none max-width:cart-image width:100"> <a @onclick=" OnShowModalClick" class="font-weight:500 font-size:20 &amp;:hocus--text-decoration:underline @@mq-upto-768--margin-left:20 color:blue-265f8e display:block margin-bottom:8">@Item.Product.Name</a></td>
         <td class="@@mq-upto-768--display:block @@mq-upto-768--padding-left:cart-image @@mq-upto-768--padding-right:0 @@mq-upto-768--padding-vertical:0 padding:16"><span class="font-weight:500 @@mq-upto-768--margin-left:20 display:block @@mq-upto-768--margin-bottom:12 font-size:24">$@Item.Price.ToString("0.00")</span></td>
         <td class="@@mq-upto-768--display:block @@mq-upto-768--padding-left:cart-image @@mq-upto-768--padding-right:0 @@mq-upto-768--padding-vertical:0 padding:16"><span class="font-weight:500 @@mq-upto-768--margin-left:20 display:block @@mq-upto-768--margin-bottom:12 font-size:24">@Item.Quantity</span></td>
         <td class="@@mq-upto-768--display:block @@mq-upto-768--padding-left:cart-image @@mq-upto-768--padding-right:0 @@mq-upto-768--padding-vertical:0 padding:16"><span class="font-weight:500 @@mq-upto-768--margin-left:20 display:block @@mq-upto-768--margin-bottom:12 font-size:24 @@mq-upto-768--visually-hidden">$@Item.TotalPrice.ToString("0.00")</span></td>
         <td class="@@mq-upto-768--display:block @@mq-upto-768--padding-left:cart-image @@mq-upto-768--padding-right:0 @@mq-upto-768--padding-vertical:0 padding:16 text-align:right">
             <button type="button" @onclick="DeleteCartItem" aria-label="Remove @Item.Product.Name from your cart" class="display:inline-block @@mq-upto-768--margin-left:20 @@mq-upto-768--margin-top:-2 @@mq-upto-768--pos-left:136px @@mq-upto-768--pos-top:-30px group position:relative">Delete</button>
         </td>
-    </tr>    
+    </tr>
+    <ConfirmDialog @ref="dialog" />
+    <Modal @ref="modal" title="Details" UseStaticBackdrop="true" Size="ModalSize.Small">
+        <BodyTemplate>
+            <table style="width:100%">
+                <tr>
+                    <td>Name:</td>
+                    <td>@Item.Product.Name</td>
+                </tr>
+                <tr>
+                    <td>Length:</td>
+                    <td>@Item.Product.Length feet</td>
+                </tr>
+                <tr>
+                    <td>Width:</td>
+                    <td>@Item.Product.Width inches</td>
+                </tr>
+                <tr>
+                    <td>Thickness:</td>
+                    <td>@Item.Product.Thickness inches</td>
+                </tr>
+                <tr>
+                    <td>Volume:</td>
+                    <td>@Item.Product.Volume L</td>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                    <td>@Item.Product.Type</td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td>$@Item.Product.Price</td>
+                </tr>
+                <tr>
+                    <td>Equipment:</td>
+                    <td>@Item.Product.Equipment</td>
+                </tr>
+            </table>
+        </BodyTemplate>
+        <FooterTemplate>
+            <Button Color="ButtonColor.Secondary" @onclick="OnHideModalClick">Close</Button>
+            <Button Color="ButtonColor.Primary" @onclick="OnHideModalClick">Understood</Button>
+        </FooterTemplate>
+    </Modal>
 }
 @code {
     [Parameter]
     public ShoppingCartItemModel? Item { get; set; }
+    private Modal modal = default!;
+    private ConfirmDialog dialog = default!;
 }
 @functions {
-    public void DeleteCartItem()
+    public async Task DeleteCartItem()
     {
-        if (Item != null)
+        var options = new ConfirmDialogOptions
+            {
+                YesButtonText = "OK",
+                YesButtonColor = ButtonColor.Success,
+                NoButtonText = "CANCEL",
+                NoButtonColor = ButtonColor.Danger
+            };
+
+            var confirmation = await dialog.ShowAsync(
+            title: "Confirm Deletion",
+            message1:  $"Are you sure you want to delete {Item.Product.Name}?",
+            confirmDialogOptions: options);
+        
+
+        if (confirmation)
         {
-            shoppingCartService.DeleteProduct(Item);
-            Item = null;
+            if (Item != null)
+            {
+                shoppingCartService.DeleteProduct(Item);
+                Item = null;
+            }
         }
+
+    }
+
+    private async Task OnShowModalClick()
+    {
+        await modal.ShowAsync();
+    }
+
+    private async Task OnHideModalClick()
+    {
+        await modal.HideAsync();
     }
 }
