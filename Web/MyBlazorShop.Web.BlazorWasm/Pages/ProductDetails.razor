@@ -1,6 +1,7 @@
 ﻿@using MyBlazorShop.Libraries.Services.Product
 @using MyBlazorShop.Libraries.Services.Product.Models
 @using MyBlazorShop.Libraries.Services.ShoppingCart
+@using MyBlazorShop.Libraries.Services.Help.Models
 @using MyBlazorShop.Web.BlazorWasm.Shared.Layout
 @page "/product/{slug}"
 @inject IProductService productService
@@ -24,7 +25,14 @@
                 }
                 else {
                     <div class="display:flex flex-direction:column flex-grow:0 flex-shrink:0 margin-bottom:32 padding-horizontal:16 width:100 @@mq-768--width:50">
-                        <img src="images/@Product.Image" alt="Photo of @Product.Name" style="position:absolute; max-width:100%; max-height:400px;"  />
+                        <button class="button solid gold" @onclick="ChangeImage">Change image</button>
+                        @if (!string.IsNullOrWhiteSpace(ImageSource))
+                        {
+                            <div class="wrapper">
+                                <img src="@ImageSource" alt="@Product.Name" style="padding: 0 9.917%;">
+                            </div>
+                        }
+                        @* <img src="images/@Product.Image" alt="Photo of @Product.Name" style="position:absolute; max-width:100%; max-height:400px;"  /> *@
                    </div>
                    <div class="display:flex flex-direction:column flex-grow:0 flex-shrink:0 margin-bottom:32 padding-horizontal:16 width:100 @@mq-768--width:50">
                        <h1 class="font-weight:500 font-size:28 line-height:1_142 margin-bottom:24 @@mq-768--font-size:32 @@mq-768--line-height:1_125">@Product.Name</h1> 
@@ -74,20 +82,32 @@
     public string? Slug { get; set; }
 
     public IList<ProductModel>? AllProducts { get; set; }    
+
+    private string? ImageSource = "";
 }
 @functions {
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         AllProducts = productService.GetAll();
 
         base.OnInitialized();
     }
 
-    protected override void OnParametersSet()
+    private void ChangeImage()
+    {
+        ImageSource = "images/monkey_glider.jpg";
+    }
+
+
+    protected override async Task OnParametersSetAsync()
     {
         if (!string.IsNullOrWhiteSpace(Slug))
         {
             Product = productService.GetBySlug(Slug);
+            if (Product != null)
+            {
+                ImageSource = "/images/" + Product.Image;
+            }
         }        
     }
 

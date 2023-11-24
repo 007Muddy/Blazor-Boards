@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{CEA21971-EA6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardsAPI", "BoardsAPI\BoardsAPI.csproj", "{1E41F8BF-CF36-4AE2-9B45-E25B4171C063}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlazorShopHosted.Web.Server", "MyBlazorShopHosted.Web.Server\MyBlazorShopHosted.Web.Server.csproj", "{B071688D-AEB9-462B-A94A-B380F5AD4B97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{1E41F8BF-CF36-4AE2-9B45-E25B4171C063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E41F8BF-CF36-4AE2-9B45-E25B4171C063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E41F8BF-CF36-4AE2-9B45-E25B4171C063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B071688D-AEB9-462B-A94A-B380F5AD4B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B071688D-AEB9-462B-A94A-B380F5AD4B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B071688D-AEB9-462B-A94A-B380F5AD4B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B071688D-AEB9-462B-A94A-B380F5AD4B97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{2489693F-1F03-41D8-88E7-9BAD01889B46} = {8CF169B7-D13C-43A8-BD39-75F446982690}
 		{8A617224-5D67-4B66-B12C-515EC4345A11} = {E47542AE-B8E4-4DD1-8751-EE1AA1CDFA3A}
 		{1E41F8BF-CF36-4AE2-9B45-E25B4171C063} = {CEA21971-EA67-4816-935A-435DF8E74026}
+		{B071688D-AEB9-462B-A94A-B380F5AD4B97} = {8CF169B7-D13C-43A8-BD39-75F446982690}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16834D7B-43F8-4EEB-8A79-0B1AC43F868F}
