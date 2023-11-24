@@ -15,11 +15,13 @@
         <div class="display:flex flex-direction:column flex-grow:1">
             <a @onclick=" OnShowModalClick" class="group color:neutral-3a3a3d flex-grow:1 margin-bottom:16">
                 <span class="display:block margin-bottom:16 padding-bottom:100pc position:relative">
-                    <img alt="Photo of @Product.Name" src="images/@Product.Image" style="position:absolute; margin-bottom:10% max-width:100%; max-height:200px;">
+                    <img alt="Photo of @Product.Name" src="@ImageSource" style="position:absolute; margin-bottom:10% max-width:100%; max-height:150px;">
                 </span>
                 <h3 class="font-weight:500 font-size:20 group:hocus__color:orange-ff583d letter-spacing:1_2 margin-bottom:16">@Product.Name</h3>
                 <p class="line-height:1.166 font-size:24">$@Product.Price.ToString("0.00")</p>
             </a>
+            <button class="button solid gold" @onclick="ChangeImage">Change image</button>
+          
             <input type="text" placeholder="Quantity" name="Qty" @bind="Quantity" @bind:event="oninput" class="padding:12 &:hocus--border-color:neutral-000000 appearance:none background-color:neutral-ffffff border-color:neutral-4c5b5c border-radius:0 border-style:solid border-width:1 color:neutral-483e40 min-height:form-input width:100" />
             <button @onclick="AddToCart" class="display:inline-block padding-horizontal:24 padding-horizontal:24 &amp;:hocus--background-color:yellow-f0c808 background-color:orange-ff583d color:neutral-222224 font-size:18 font-weight:700 line-height:1 margin-bottom:32 padding-vertical:12 padding-vertical:16">
                 @if (shoppingCartService.HasProduct(Product.ID))
@@ -95,6 +97,13 @@
     private IJSObjectReference? StreamImageModule { get; set; }
 
     private ElementReference ProductImageRef;
+
+    [Parameter]
+    public string? Slug { get; set; }
+
+    private string? temp { get; set; }
+
+    private string? ImageSource = "";
 }
 @functions {
     protected override async Task OnParametersSetAsync()
@@ -106,6 +115,8 @@
 
         if (Product != null)
         {
+            ImageSource = "/images/" + Product.Image;
+
             HasProductInCart = shoppingCartService.HasProduct(Product.ID);
 
             var imageStream = await StreamImageAsync();
@@ -119,6 +130,20 @@
 
         await base.OnParametersSetAsync();
     }
+
+    private void ChangeImage()
+    {
+        if (ImageSource == "images/monkey_glider.jpg")
+        {
+            ImageSource = temp;
+        }
+        else if (ImageSource != "images/monkey_glider.jpg")
+        {
+            temp = ImageSource;
+            ImageSource = "images/monkey_glider.jpg";
+        }
+    }
+
     private async Task<Stream?> StreamImageAsync()
     {
         if (Product == null)

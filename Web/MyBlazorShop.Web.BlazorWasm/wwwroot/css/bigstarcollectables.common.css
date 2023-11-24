@@ -331,7 +331,7 @@ a {
     justify-content: center;
     align-items: center;
     padding: var(--dist-min-cont-edge);
-    opacity: 0;
+    opacity: 1;
     width: 100%;
     height: 100%;
     overflow: auto;
