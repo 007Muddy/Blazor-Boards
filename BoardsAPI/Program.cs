@@ -34,6 +34,7 @@ namespace BoardsAPI
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

@@ -321,7 +321,7 @@ a {
 
 /*  3.4. modal dialog
 -------------------------------------------------------*/
-
+/*
 .dialog-backdrop {
     position: fixed;
     top: 0;
@@ -350,7 +350,7 @@ a {
 
 .dialog-backdrop > div {
     margin: auto;
-}
+}*/
 
 
 
